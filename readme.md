@@ -1,4 +1,4 @@
-# In this project we learn about
+# In this project we will learn about
 
 ## TableView
 ## TableViewController
