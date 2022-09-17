@@ -18,20 +18,24 @@ class TableViewController: UITableViewController {
         title = "Strom Viewer"
         navigationController?.navigationBar.prefersLargeTitles = true
         
-        let fileManager = FileManager.default
-        let path = Bundle.main.resourcePath!
-        var items = try! fileManager.contentsOfDirectory(atPath: path)
-        
-        // sorting the array elements
-        items.sort()
-        
-        // for in loop
-        for item in items {
-            if item.hasPrefix("nssl") {
-                // this is a picture from directory to load
-                pictures.append(item)
+        DispatchQueue.global(qos: .userInitiated).async { [weak self] in
+            let fileManager = FileManager.default
+            let path = Bundle.main.resourcePath!
+            var items = try! fileManager.contentsOfDirectory(atPath: path)
+            
+            // sorting the array elements
+            items.sort()
+            
+            // for in loop
+            for item in items {
+                if item.hasPrefix("nssl") {
+                    // this is a picture from directory to load
+                    self?.pictures.append(item)
+                }
             }
         }
+        
+        tableView.reloadData()
     }
 }
 
